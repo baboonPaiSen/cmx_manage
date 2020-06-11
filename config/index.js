@@ -13,6 +13,7 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     //proxyTable: proxyConfig.proxyList,
+    /*跨域代理，让内部转发不跨域*/
     proxyTable: {
       '/banner': {
         // target: 'http://localhost:3000/mock/11'
@@ -21,6 +22,7 @@ module.exports = {
       },
       '/api/cms': {
         target: 'http://localhost:31001',
+        /*会自动忽略api字符串*/
         pathRewrite: {
           '^/api': ''
         }

@@ -10,12 +10,14 @@
           :value="item.siteName">
         </el-option>
       </el-select>
-      <el-input v-model="pageInfo.pageAliase" placeholder="请输入内容" style="width: 200px"></el-input>
+      <span>页面别名</span>
+      <el-input v-model="pageInfo.pageAliase" placeholder="请输入网站别名" style="width: 200px"></el-input>
       <el-button type="primary" size="medium" @click="queryPageList()">查询</el-button>
         <!--新增路由地址,还需要去index.js添加路由-->
         <!--query后面携带参数-->
         <router-link :to="{path:'/cms/page/add',query:{
-          page:this.pageInfo.page
+          page:this.pageInfo.page,
+          siteId:this.pageInfo.siteId
         }}">
           <el-button type="primary">添加页面</el-button>
         </router-link>
@@ -87,6 +89,7 @@
       :page-sizes="[100, 200, 300, 400]"
       :page-size="pageInfo.pageSize"
       layout="total, sizes, prev, pager, next, jumper"
+      style="float: right"
       :total="400">
     </el-pagination>
   </div>
@@ -147,7 +150,11 @@
       queryPageList(){
         cmsApi.page_list(this.pageInfo.page,this.pageInfo.pageSize,this.pageInfo).then(resp=>{
             this.total = resp.queryResult.total;
-            this.pageList = resp.queryResult.list;
+            let data = resp.queryResult.list;
+            data.forEach(x=>{
+              // x.pageCreateTime = new Date(x.pageCreateTime)
+            });
+            this.pageList = data;
         })
       },
       changePage(page){
@@ -184,7 +191,7 @@
       },
       handlePublish(index,row){
         cmsApi.publishPage(row).then(resp=>{
-          this.$message.success("发布成功")
+          this.$message.success("发布成功");
         })
       }
 

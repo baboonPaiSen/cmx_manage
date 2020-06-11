@@ -106,6 +106,7 @@ import * as cmsApi from "../api/csm"
           query:{
             /*注意这里是route*/
             page:this.$route.query.page,
+            siteId:this.$route.query.siteId,
           }
         })
       },

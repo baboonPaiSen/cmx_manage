@@ -1,3 +1,5 @@
+
+/*@表示src下面的目录*/
 import Home from '@/module/home/page/home.vue';
 import page_list from '@/module/cms/page/page_list.vue';
 import page_add from '@/module/cms/page/page_add.vue';
